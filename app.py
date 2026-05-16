@@ -180,7 +180,7 @@ def create_overlay(original_pil, heatmap, pred_class, confidence, threshold=0.5)
 # ─────────────────────────────────────────────
 def plot_confidence(probs, labels, top_idx):
     colors = ["#e63946" if i == top_idx else "#457b9d" for i in range(len(labels))]
-    fig, ax = plt.subplots(figsize=(5, 2.8))
+    fig, ax = plt.subplots(figsize=(8, 3))
     bars = ax.barh(labels, probs * 100, color=colors, height=0.5)
     ax.set_xlim(0, 108)
     ax.set_xlabel("Confidence (%)", fontsize=9)
@@ -261,7 +261,7 @@ if uploaded:
 
         st.markdown("**Class probabilities**")
         fig = plot_confidence(probs, CLASS_LABELS, top_idx)
-        st.pyplot(fig, use_column_width=True)
+        st.pyplot(fig)
         plt.close(fig)
 
     # ── Grad‑CAM & Bounding Box ──────────────
@@ -286,7 +286,7 @@ if uploaded:
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.image(image,       caption="Original",                use_column_width=True)
+                st.image(image,caption="Original",                use_column_width=True)
             with col2:
                 st.image(overlay_img, caption="Grad‑CAM + Bounding Box", use_column_width=True)
             with col3:
