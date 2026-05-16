@@ -235,7 +235,8 @@ if uploaded:
     # ── Left: original image ──────────────────
     with col_img:
         st.subheader("Uploaded X‑Ray")
-        st.image(image, use_container_width=True, caption=uploaded.name)
+        st.image(np.array(image.convert("RGB")), use_column_width=True, caption=str(uploaded.name))
+        # st.image(image, use_container_width=True, caption=uploaded.name)
 
     # ── Inference ────────────────────────────
     with st.spinner("Analysing…"):
@@ -260,7 +261,7 @@ if uploaded:
 
         st.markdown("**Class probabilities**")
         fig = plot_confidence(probs, CLASS_LABELS, top_idx)
-        st.pyplot(fig, use_container_width=True)
+        st.pyplot(fig, use_column_width=True)
         plt.close(fig)
 
     # ── Grad‑CAM & Bounding Box ──────────────
@@ -285,11 +286,11 @@ if uploaded:
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.image(image,       caption="Original",                use_container_width=True)
+                st.image(image,       caption="Original",                use_column_width=True)
             with col2:
-                st.image(overlay_img, caption="Grad‑CAM + Bounding Box", use_container_width=True)
+                st.image(overlay_img, caption="Grad‑CAM + Bounding Box", use_column_width=True)
             with col3:
-                st.image(heatmap_viz, caption="Grad‑CAM Heatmap",        use_container_width=True)
+                st.image(heatmap_viz, caption="Grad‑CAM Heatmap",        use_column_width=True)
 
             # --- AI Explanation Summary ---
             notes = {
